@@ -72,18 +72,15 @@ public class PlayerScript : NetworkBehaviour
             return;
         }
 
-        var moveX = Input.GetAxis("Horizontal") * Time.deltaTime * 110f;
+        var moveX = Input.GetAxis("Horizontal") * Time.deltaTime * 4.0f;
         var moveZ = Input.GetAxis("Vertical") * Time.deltaTime * 4.0f;
         
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
         float X = Input.GetAxis("Mouse X") * RotateSpeed;
         float Y = Input.GetAxis("Mouse Y") * RotateSpeed;
-        Vector3 speed = new Vector3(h, 0, v);
+        
         Camera.main.transform.localRotation = Camera.main.transform.localRotation * Quaternion.Euler(-Y,0,0);
         transform.localRotation = transform.localRotation * Quaternion.Euler(0, X, 0);
-        
-        
+
         transform.Translate(moveX,0,moveZ);
 
         if (Input.GetKeyDown(KeyCode.C))

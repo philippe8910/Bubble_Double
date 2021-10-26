@@ -378,3 +378,4 @@ MonoBehaviour:
   syncInterval: 0.1
   Info: {fileID: 1563266415066243778}
   nameText: {fileID: 7199722045006796338}
+  RotateSpeed: 1
