@@ -9,10 +9,13 @@ public class PlayerScript : NetworkBehaviour
 {
     public GameObject Info;
     public TextMesh nameText;
+    public CharacterController _CharacterController;
 
     public float RotateSpeed;
+    public float Speed;
 
     private Material playerMaterialClone;
+
 
     [SyncVar(hook = nameof(OnPlayerNameChange))]
     private string PlayerName;
@@ -72,16 +75,19 @@ public class PlayerScript : NetworkBehaviour
             return;
         }
 
-        var moveX = Input.GetAxis("Horizontal") * Time.deltaTime * 4.0f;
-        var moveZ = Input.GetAxis("Vertical") * Time.deltaTime * 4.0f;
-        
         float X = Input.GetAxis("Mouse X") * RotateSpeed;
         float Y = Input.GetAxis("Mouse Y") * RotateSpeed;
         
         Camera.main.transform.localRotation = Camera.main.transform.localRotation * Quaternion.Euler(-Y,0,0);
         transform.localRotation = transform.localRotation * Quaternion.Euler(0, X, 0);
+        
+        float x = Input.GetAxis("Horizontal");//input水平
+        float z = Input.GetAxis("Vertical");//input垂直
 
-        transform.Translate(moveX,0,moveZ);
+        Vector3 move = transform.right * x + transform.forward * z;
+
+
+        _CharacterController.Move(move * Speed * Time.deltaTime);
 
         if (Input.GetKeyDown(KeyCode.C))
         {
